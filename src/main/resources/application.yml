@@ -1,0 +1,43 @@
+# debug
+debug: false
+
+# database
+database:
+  host:
+  name:
+  username:
+  password:
+
+# server
+server:
+  port: 8080
+
+# spring core
+spring:
+  profiles.active: dev
+#  datasource:
+#    username: ${database.username}
+#    password: ${database.password}
+#    url: jdbc:mysql://${database.host}:3306/${database.name}?characterEncoding=utf-8&useUnicode=true&useSSL=false&rewriteBatchedStatements=TRUE
+
+#  jpa:
+#    database: MYSQL
+#    hibernate.ddl-auto: none
+#    show-sql: false
+
+# logging
+logging:
+  file: banana-king.log
+  file.max-size: 500MB
+
+facebook:
+  version: v3.0
+  base-url: https://graph.facebook.com/${facebook.version}/
+  app:
+  secret:
+  access-token:
+
+  page:
+    id:
+    name:
+    token:
