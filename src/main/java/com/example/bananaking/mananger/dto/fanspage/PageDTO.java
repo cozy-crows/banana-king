@@ -14,7 +14,7 @@ import java.io.Serializable;
  * @see <a href="https://developers.facebook.com/docs/graph-api/reference/page/"> docs </a>
  */
 @Data
-public class Page implements Serializable {
+public class PageDTO implements Serializable {
 
     @JsonProperty("id")
     private String id;
@@ -41,10 +41,10 @@ public class Page implements Serializable {
 
     /** 有無 bot */
     @JsonProperty("is_messenger_platform_bot")
-    private boolean isMessengerPlatformBot;
+    private boolean messengerPlatformBot;
 
     @JsonProperty("is_webhooks_subscribed")
-    private boolean isWebhooksSubscribed;
+    private boolean webhooksSubscribed;
 
     @JsonProperty("link")
     private String link;
@@ -82,13 +82,15 @@ public class Page implements Serializable {
     @JsonProperty("whatsapp_number")
     private String whatsappNumber;
 
-    static class Cover implements Serializable {
+    @Data
+    public static class Cover implements Serializable {
 
         @JsonProperty("source")
         private String source;
     }
 
-    static class Location implements Serializable {
+    @Data
+    public static class Location implements Serializable {
 
         @JsonProperty("city")
         private String city;

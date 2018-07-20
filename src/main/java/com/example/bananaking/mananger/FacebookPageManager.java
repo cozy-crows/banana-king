@@ -1,8 +1,7 @@
 package com.example.bananaking.mananger;
 
 import com.example.bananaking.http.api.FacebookPageService;
-import com.example.bananaking.mananger.dto.FbResponse;
-import com.example.bananaking.mananger.dto.fanspage.Page;
+import com.example.bananaking.mananger.dto.fanspage.PageDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
@@ -24,10 +23,11 @@ public class FacebookPageManager {
 
     private final FacebookPageService pageService;
 
-    public CompletableFuture<FbResponse<Page>> getPage(final String pageId) {
+    public CompletableFuture<PageDTO> getPage(final String pageId) {
         final List<String> fields = Arrays.asList("id", "about", "cover", "description", "description_html",
-            "fan_count", "is_messenger_platform_bot", "is_webhooks_subscribed", "link", "name", "rating_count",
-            "talking_about_count", "unread_message_count", "unread_notif_count", "website", "were_here_count");
+            "fan_count", "is_messenger_platform_bot", "is_webhooks_subscribed", "link", "name", "new_like_count",
+            "rating_count", "talking_about_count", "unread_message_count", "unread_notif_count",
+            "website", "were_here_count");
 
         return toFuture(
             pageService.page(pageId, fieldsToString(fields), null, null));

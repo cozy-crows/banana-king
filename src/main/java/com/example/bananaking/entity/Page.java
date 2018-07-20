@@ -38,10 +38,10 @@ public class Page {
     private int fanCount = 0;
 
     @Column(name = "is_messenger_platform_bot", columnDefinition = "boolean default 0")
-    private boolean isMessengerPlatformBot = false;
+    private boolean messengerPlatformBot = false;
 
     @Column(name = "is_webhooks_subscribed", columnDefinition = "boolean default 0")
-    private boolean isWebhooksSubscribed = false;
+    private boolean webhooksSubscribed = false;
 
     @Column(name = "link")
     private String link;
