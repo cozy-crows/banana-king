@@ -1,6 +1,7 @@
 package com.example.bananaking.http.api;
 
-import com.fasterxml.jackson.databind.JsonNode;
+import com.example.bananaking.mananger.entity.fanspage.Post;
+import com.example.bananaking.mananger.entity.FbResponse;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -14,14 +15,17 @@ import retrofit2.http.Query;
 public interface FacebookPageService {
 
     /**
-     * @see <a href="https://developers.facebook.com/docs/graph-api/reference/page/"> docs </a>
+     * @see <a href="https://developers.facebook.com/docs/graph-api/reference/page/feed"> docs </a>
+     *
      * @param pageId
+     * @param fields
+     * @param after
+     * @param before
      * @return
      */
-    @GET("{pageId}/")
-    Call<JsonNode> posts(
-        @Path("pageId") String pageId,
-        @Query("fields") String fields,
-        @Query("after") String after,
-        @Query("before") String before);
+    @GET("{pageId}/posts")
+    Call<FbResponse<Post>> posts(@Path("pageId") String pageId,
+                                 @Query("fields") String fields,
+                                 @Query("after") String after,
+                                 @Query("before") String before);
 }

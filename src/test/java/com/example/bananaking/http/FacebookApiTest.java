@@ -6,6 +6,8 @@ import com.example.bananaking.BaseicTest;
 import com.example.bananaking.config.FacebookPageProperties;
 import com.example.bananaking.http.api.FacebookPageService;
 import com.example.bananaking.http.api.FacebookService;
+import com.example.bananaking.mananger.entity.fanspage.Post;
+import com.example.bananaking.mananger.entity.FbResponse;
 import com.fasterxml.jackson.databind.JsonNode;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -42,8 +44,8 @@ public class FacebookApiTest extends BaseicTest {
         final String pageId = pageProperties.getId();
         final String fields = "id, name";
 
-        Call<JsonNode> call = facebookPageService.posts(pageId, fields, null, null);
-        Response<JsonNode> response = call.execute();
+        Call<FbResponse<Post>> call = facebookPageService.posts(pageId, fields, null, null);
+        Response<FbResponse<Post>> response = call.execute();
         assertEquals(200, response.code());
     }
 }
