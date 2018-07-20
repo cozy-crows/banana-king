@@ -5,8 +5,8 @@ import static org.junit.Assert.assertNotNull;
 import com.example.bananaking.BaseicTest;
 import com.example.bananaking.config.FacebookPageProperties;
 import com.example.bananaking.mananger.FacebookPageManager;
-import com.example.bananaking.mananger.entity.FbResponse;
-import com.example.bananaking.mananger.entity.fanspage.Post;
+import com.example.bananaking.mananger.dto.FbResponse;
+import com.example.bananaking.mananger.dto.fanspage.Page;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -27,7 +27,7 @@ public class FacebookPageManagerTest extends BaseicTest {
     @Test
     public void assert_get_post_success() throws ExecutionException, InterruptedException {
 
-        FbResponse<Post> response = pageManager.getPosts(pageProperties.getId()).get();
+        FbResponse<Page> response = pageManager.getPage(pageProperties.getId()).get();
 
         assertNotNull(response.getData());
     }

@@ -1,4 +1,4 @@
-package com.example.bananaking.mananger.entity;
+package com.example.bananaking.mananger.dto;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;

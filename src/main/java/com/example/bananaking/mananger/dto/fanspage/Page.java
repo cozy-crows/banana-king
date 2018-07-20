@@ -1,4 +1,4 @@
-package com.example.bananaking.mananger.entity.fanspage;
+package com.example.bananaking.mananger.dto.fanspage;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.Data;
@@ -8,13 +8,13 @@ import java.io.Serializable;
 /**
  * Created by jerry on 2018/7/19.
  * <p>
- * facebook page post entity
+ * facebook page post dto
  *
  * @author jerry
  * @see <a href="https://developers.facebook.com/docs/graph-api/reference/page/"> docs </a>
  */
 @Data
-public class Post implements Serializable {
+public class Page implements Serializable {
 
     @JsonProperty("id")
     private String id;
