@@ -3,6 +3,7 @@ package com.example.bananaking.entity;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -23,7 +24,7 @@ public class Post implements Serializable {
     @Id
     private String id;
 
-    @Column(name = "message")
+    @Column(name = "message", columnDefinition="Text")
     private String message;
 
     @Column(name = "link")
@@ -33,9 +34,9 @@ public class Post implements Serializable {
     private String objectId;
 
     @Column(name = "created_time")
-    private String createdTime;
+    private LocalDateTime createdTime;
 
-    @Column(name = "full_picture")
+    @Column(name = "full_picture", columnDefinition="Text")
     private String fullPicture;
 
     @Column(name = "shares", columnDefinition = "int default 0")

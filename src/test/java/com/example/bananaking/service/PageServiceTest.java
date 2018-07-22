@@ -26,4 +26,10 @@ public class PageServiceTest extends BaseicTest {
 
         pageService.fetchAndSavePage(pageProperties.getId());
     }
+
+    @Test
+    public void assert_save_posts_success() throws ExecutionException, InterruptedException {
+
+        pageService.fetchAndSavePosts(pageProperties.getId());
+    }
 }
