@@ -13,9 +13,9 @@ import javax.persistence.Table;
  * @author jerry
  */
 @Data
-@Entity(name = "user")
-@Table(name = "user")
-public class User {
+@Entity(name = "comment_user")
+@Table(name = "comment_user")
+public class CommentUser {
 
     /** psid */
     @Id

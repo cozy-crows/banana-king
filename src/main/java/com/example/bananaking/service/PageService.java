@@ -3,7 +3,7 @@ package com.example.bananaking.service;
 import com.example.bananaking.entity.Comment;
 import com.example.bananaking.entity.Page;
 import com.example.bananaking.entity.Post;
-import com.example.bananaking.entity.User;
+import com.example.bananaking.entity.CommentUser;
 import com.example.bananaking.mananger.FacebookPageManager;
 import com.example.bananaking.mananger.dto.FbResponse;
 import com.example.bananaking.mananger.dto.fanspage.CommentDTO;
@@ -12,7 +12,7 @@ import com.example.bananaking.mananger.dto.fanspage.PostDTO;
 import com.example.bananaking.repository.CommentRepository;
 import com.example.bananaking.repository.PageRepository;
 import com.example.bananaking.repository.PostRepository;
-import com.example.bananaking.repository.UserRepository;
+import com.example.bananaking.repository.CommentUserRepository;
 import com.example.bananaking.service.transform.CommentTransformer;
 import com.example.bananaking.service.transform.PageTransformer;
 import com.example.bananaking.service.transform.PostTransformer;
@@ -41,7 +41,7 @@ public class PageService {
     private PageRepository pageRepo;
     private PostRepository postRepo;
     private CommentRepository commentRepo;
-    private UserRepository userRepo;
+    private CommentUserRepository userRepo;
 
     /**
      * Fetch page info and save
@@ -84,7 +84,7 @@ public class PageService {
     public List<Comment> fetchAndSaveComments(Post post) throws ExecutionException, InterruptedException {
 
         List<Comment> allComments = new ArrayList<>();
-        List<User> allUsers = new ArrayList<>();
+        List<CommentUser> allUsers = new ArrayList<>();
         FbResponse<CommentDTO> response;
         String nextPage = null;
 
@@ -97,7 +97,7 @@ public class PageService {
                     .parallelStream()
                     .map(comment -> CommentTransformer.toEntity(post, comment))
                     .collect(Collectors.toList());
-            List<User> users =
+            List<CommentUser> users =
                 comments.parallelStream()
                 .map(Comment::getFrom)
                 .collect(Collectors.toList());
