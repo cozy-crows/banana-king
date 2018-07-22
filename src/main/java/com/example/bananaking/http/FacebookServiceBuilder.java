@@ -3,7 +3,8 @@ package com.example.bananaking.http;
 import com.example.bananaking.http.interceptor.TokenInterceptor;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import com.fasterxml.jackson.module.paramnames.ParameterNamesModule;
 import lombok.extern.slf4j.Slf4j;
 import okhttp3.Interceptor;
@@ -120,10 +121,11 @@ public class FacebookServiceBuilder {
     private Retrofit.Builder retrofitBuilder() {
         // jackson converter
         final ObjectMapper objectMapper = new ObjectMapper()
+            .configure(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS, false)
             .configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
+            .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false)
             .registerModule(new ParameterNamesModule())
-            .registerModule(new JodaModule())
-            .configure(DeserializationFeature.READ_DATE_TIMESTAMPS_AS_NANOSECONDS, false);
+            .registerModule(new JavaTimeModule());
 
         return new Retrofit.Builder()
             .addConverterFactory(JacksonConverterFactory.create(objectMapper));

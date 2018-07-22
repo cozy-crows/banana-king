@@ -17,6 +17,8 @@ import javax.persistence.Table;
 @Table(name = "pages")
 public class Page {
 
+    private static final long serialVersionUID = 1L;
+
     /** page_id */
     @Id
     private String id;

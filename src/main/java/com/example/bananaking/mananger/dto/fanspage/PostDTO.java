@@ -3,7 +3,8 @@ package com.example.bananaking.mananger.dto.fanspage;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 import lombok.Value;
-import org.joda.time.DateTime;
+
+import java.time.OffsetDateTime;
 
 /**
  * Created by jerry on 2018/7/20.
@@ -28,7 +29,7 @@ public class PostDTO {
     private String objectId;
 
     @JsonProperty("created_time")
-    private DateTime createdTime;
+    private OffsetDateTime createdTime;
 
     @JsonProperty("full_picture")
     private String fullPicture;

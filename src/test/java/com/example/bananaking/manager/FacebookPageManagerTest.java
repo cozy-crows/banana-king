@@ -38,4 +38,5 @@ public class FacebookPageManagerTest extends BaseicTest {
         FbResponse<PostDTO> posts = pageManager.getPosts(pageProperties.getId(), null).get();
         assertNotNull(posts);
     }
+
 }

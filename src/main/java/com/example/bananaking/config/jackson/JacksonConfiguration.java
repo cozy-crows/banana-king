@@ -1,7 +1,8 @@
 package com.example.bananaking.config.jackson;
 
 import com.fasterxml.jackson.databind.SerializationFeature;
-import com.fasterxml.jackson.datatype.joda.JodaModule;
+
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
@@ -15,7 +16,7 @@ import org.springframework.http.converter.json.Jackson2ObjectMapperBuilder;
 public class JacksonConfiguration {
 
     /**
-     * 採用 {@link JodaModule} 來做為日期與時間相關的序列化標準
+     * 採用 {@link JavaTimeModule} 來做為日期與時間相關的序列化標準
      * Example: http://www.baeldung.com/jackson-serialize-dates
      * <p>
      * 相關文件
@@ -30,6 +31,6 @@ public class JacksonConfiguration {
         return new Jackson2ObjectMapperBuilder()
             .featuresToDisable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS)
             .findModulesViaServiceLoader(true)
-            .modulesToInstall(new JodaModule());
+            .modulesToInstall(new JavaTimeModule());
     }
 }
