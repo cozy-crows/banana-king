@@ -1,7 +1,9 @@
 package com.example.bananaking.mananger;
 
 import com.example.bananaking.http.api.FacebookPageService;
+import com.example.bananaking.mananger.dto.FbResponse;
 import com.example.bananaking.mananger.dto.fanspage.PageDTO;
+import com.example.bananaking.mananger.dto.fanspage.PostDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
@@ -12,7 +14,7 @@ import java.util.concurrent.CompletableFuture;
 
 /**
  * Created by jerry on 2018/7/19.
- *
+ * <p>
  * 包裝 FacebookPageService.java
  *
  * @author jerry
@@ -22,16 +24,6 @@ import java.util.concurrent.CompletableFuture;
 public class FacebookPageManager {
 
     private final FacebookPageService pageService;
-
-    public CompletableFuture<PageDTO> getPage(final String pageId) {
-        final List<String> fields = Arrays.asList("id", "about", "cover", "description", "description_html",
-            "fan_count", "is_messenger_platform_bot", "is_webhooks_subscribed", "link", "name", "new_like_count",
-            "rating_count", "talking_about_count", "unread_message_count", "unread_notif_count",
-            "website", "were_here_count");
-
-        return toFuture(
-            pageService.page(pageId, fieldsToString(fields), null, null));
-    }
 
     /**
      * Async request
@@ -44,6 +36,25 @@ public class FacebookPageManager {
         final CallbackAdaptor<T> responseFuture = new CallbackAdaptor<>();
         callToWrap.enqueue(responseFuture);
         return responseFuture;
+    }
+
+    public CompletableFuture<PageDTO> getPage(final String pageId) {
+        final List<String> fields = Arrays.asList("id", "about", "cover", "description", "description_html",
+            "fan_count", "is_messenger_platform_bot", "is_webhooks_subscribed", "link", "name", "new_like_count",
+            "rating_count", "talking_about_count", "unread_message_count", "unread_notif_count",
+            "website", "were_here_count");
+        return toFuture(
+            pageService.page(pageId, fieldsToString(fields), null, null));
+    }
+
+    public CompletableFuture<FbResponse<PostDTO>> getPosts(final String pageId, String nextPage) {
+        final List<String> fields = Arrays.asList("id", "message", "link", "object_id,created_time",
+            "full_picture", "shares");
+        final boolean isPublished = true;
+        final int limit = 100;
+        return toFuture(
+            pageService.posts(pageId, fieldsToString(fields), isPublished, limit, nextPage, null)
+        );
     }
 
     private String fieldsToString(List<String> fields) {

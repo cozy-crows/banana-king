@@ -1,7 +1,8 @@
 package com.example.bananaking.mananger.dto.fanspage;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
+import lombok.ToString;
+import lombok.Value;
 
 import java.io.Serializable;
 
@@ -13,7 +14,8 @@ import java.io.Serializable;
  * @author jerry
  * @see <a href="https://developers.facebook.com/docs/graph-api/reference/page/"> docs </a>
  */
-@Data
+@Value
+@ToString
 public class PageDTO implements Serializable {
 
     @JsonProperty("id")
@@ -82,14 +84,16 @@ public class PageDTO implements Serializable {
     @JsonProperty("whatsapp_number")
     private String whatsappNumber;
 
-    @Data
+    @Value
+    @ToString
     public static class Cover implements Serializable {
 
         @JsonProperty("source")
         private String source;
     }
 
-    @Data
+    @Value
+    @ToString
     public static class Location implements Serializable {
 
         @JsonProperty("city")
