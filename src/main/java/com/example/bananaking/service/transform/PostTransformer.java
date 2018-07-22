@@ -1,5 +1,6 @@
 package com.example.bananaking.service.transform;
 
+import com.example.bananaking.entity.Page;
 import com.example.bananaking.entity.Post;
 import com.example.bananaking.mananger.dto.fanspage.PostDTO;
 
@@ -15,7 +16,7 @@ public class PostTransformer {
     private PostTransformer() {
     }
 
-    public static Post toEntity(PostDTO dto) {
+    public static Post toEntity(Page page, PostDTO dto) {
         Post post = new Post();
         post.setId(dto.getId());
         post.setMessage(dto.getMessage());
@@ -28,6 +29,7 @@ public class PostTransformer {
             post.setShares(dto.getShares().getCount());
         }
 
+        post.setPage(page);
         return post;
     }
 

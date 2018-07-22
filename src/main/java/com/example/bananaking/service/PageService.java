@@ -1,17 +1,27 @@
 package com.example.bananaking.service;
 
+import com.example.bananaking.entity.Comment;
+import com.example.bananaking.entity.Page;
 import com.example.bananaking.entity.Post;
+import com.example.bananaking.entity.User;
 import com.example.bananaking.mananger.FacebookPageManager;
 import com.example.bananaking.mananger.dto.FbResponse;
+import com.example.bananaking.mananger.dto.fanspage.CommentDTO;
 import com.example.bananaking.mananger.dto.fanspage.PageDTO;
 import com.example.bananaking.mananger.dto.fanspage.PostDTO;
+import com.example.bananaking.repository.CommentRepository;
 import com.example.bananaking.repository.PageRepository;
 import com.example.bananaking.repository.PostRepository;
+import com.example.bananaking.repository.UserRepository;
+import com.example.bananaking.service.transform.CommentTransformer;
 import com.example.bananaking.service.transform.PageTransformer;
 import com.example.bananaking.service.transform.PostTransformer;
 import lombok.AllArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.ExecutionException;
@@ -22,6 +32,7 @@ import java.util.stream.Collectors;
  *
  * @author jerry
  */
+@Slf4j
 @Service
 @AllArgsConstructor
 public class PageService {
@@ -29,33 +40,77 @@ public class PageService {
     private FacebookPageManager pageManager;
     private PageRepository pageRepo;
     private PostRepository postRepo;
+    private CommentRepository commentRepo;
+    private UserRepository userRepo;
 
     /**
      * Fetch page info and save
      */
-    public void fetchAndSavePage(final String pageId) throws ExecutionException, InterruptedException {
+    @Transactional(rollbackFor = Exception.class)
+    public Page fetchAndSavePage(final String pageId) throws ExecutionException, InterruptedException {
 
         CompletableFuture<PageDTO> future = pageManager.getPage(pageId);
         PageDTO pageInfo = future.get();
-        pageRepo.save(
-            PageTransformer.toEntity(pageInfo));
+        Page page = PageTransformer.toEntity(pageInfo);
+        return pageRepo.save(page);
     }
 
-    public void fetchAndSavePosts(final String pageId) throws ExecutionException, InterruptedException {
 
+    public List<Post> fetchAndSavePosts(final Page page) throws ExecutionException, InterruptedException {
+
+        List<Post> allPosts = new ArrayList<>();
         FbResponse<PostDTO> response;
         String nextPage = null;
 
         do {
-            CompletableFuture<FbResponse<PostDTO>> future = pageManager.getPosts(pageId, nextPage);
+            CompletableFuture<FbResponse<PostDTO>> future = pageManager.getPosts(page.getId(), nextPage);
             response = future.get();
             List<Post> posts =
                 response.getData()
-                .parallelStream()
-                .map(PostTransformer::toEntity)
-                .collect(Collectors.toList());
+                    .parallelStream()
+                    .map(post -> PostTransformer.toEntity(page, post))
+                    .collect(Collectors.toList());
             nextPage = response.getAfterPageHash();
-            postRepo.saveAll(posts);
+            allPosts.addAll(posts);
         } while (response.hasNextPage());
+
+        allPosts = postRepo.saveAll(allPosts);
+        page.setPosts(allPosts);
+        pageRepo.save(page);
+        return allPosts;
+    }
+
+
+    public List<Comment> fetchAndSaveComments(Post post) throws ExecutionException, InterruptedException {
+
+        List<Comment> allComments = new ArrayList<>();
+        List<User> allUsers = new ArrayList<>();
+        FbResponse<CommentDTO> response;
+        String nextPage = null;
+
+        do {
+            CompletableFuture<FbResponse<CommentDTO>> future =
+                pageManager.getPostComments(post.getId(), nextPage);
+            response = future.get();
+            List<Comment> comments =
+                response.getData()
+                    .parallelStream()
+                    .map(comment -> CommentTransformer.toEntity(post, comment))
+                    .collect(Collectors.toList());
+            List<User> users =
+                comments.parallelStream()
+                .map(Comment::getFrom)
+                .collect(Collectors.toList());
+
+            nextPage = response.getAfterPageHash();
+            allComments.addAll(comments);
+            allUsers.addAll(users);
+        } while (response.hasNextPage());
+
+        userRepo.saveAll(allUsers);
+        allComments = commentRepo.saveAll(allComments);
+        post.setComments(allComments);
+        postRepo.save(post);
+        return allComments;
     }
 }
