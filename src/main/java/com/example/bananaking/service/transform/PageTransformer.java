@@ -26,8 +26,8 @@ public class PageTransformer {
         }
         entity.setDescription(dto.getDescription());
         entity.setFanCount(dto.getFanCount());
-        entity.setMessengerPlatformBot(dto.isMessengerPlatformBot());
-        entity.setWebhooksSubscribed(dto.isWebhooksSubscribed());
+        entity.setMessengerPlatformBot(dto.getMessengerPlatformBot());
+        entity.setWebhooksSubscribed(dto.getWebhooksSubscribed());
         entity.setLink(dto.getLink());
         entity.setNewLikeCount(dto.getNewLikeCount());
         entity.setRatingCount(dto.getRatingCount());

@@ -2,9 +2,12 @@ package com.example.bananaking.entity;
 
 import lombok.Data;
 
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -19,23 +22,33 @@ public class Page {
 
     private static final long serialVersionUID = 1L;
 
-    /** page_id */
+    /**
+     * page_id
+     */
     @Id
     private String id;
 
-    /** page name */
+    /**
+     * page name
+     */
     @Column(name = "name")
     private String name;
 
-    /** page cover picture */
+    /**
+     * page cover picture
+     */
     @Column(name = "cover")
     private String cover;
 
-    /** description */
+    /**
+     * description
+     */
     @Column(name = "description")
     private String description;
 
-    /** fans count */
+    /**
+     * fans count
+     */
     @Column(name = "fan_count", columnDefinition = "int default 0")
     private int fanCount = 0;
 
@@ -66,4 +79,6 @@ public class Page {
     @Column(name = "website")
     private String website;
 
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Post> posts;
 }

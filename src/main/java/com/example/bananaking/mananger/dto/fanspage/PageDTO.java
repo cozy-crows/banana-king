@@ -39,14 +39,14 @@ public class PageDTO implements Serializable {
 
     /** 粉絲數 */
     @JsonProperty("fan_count")
-    private int fanCount;
+    private Integer fanCount;
 
     /** 有無 bot */
     @JsonProperty("is_messenger_platform_bot")
-    private boolean messengerPlatformBot;
+    private Boolean messengerPlatformBot;
 
     @JsonProperty("is_webhooks_subscribed")
-    private boolean webhooksSubscribed;
+    private Boolean webhooksSubscribed;
 
     @JsonProperty("link")
     private String link;
@@ -59,19 +59,19 @@ public class PageDTO implements Serializable {
 
     /** 最近使用者對 page 按讚的數量 */
     @JsonProperty("new_like_count")
-    private int newLikeCount;
+    private Integer newLikeCount;
 
     @JsonProperty("rating_count")
-    private int ratingCount;
+    private Integer ratingCount;
 
     @JsonProperty("talking_about_count")
-    private int talkingAboutCount;
+    private Integer talkingAboutCount;
 
     @JsonProperty("unread_message_count")
-    private int unreadMessageCount;
+    private Integer unreadMessageCount;
 
     @JsonProperty("unread_notif_count")
-    private int unreadNotifCount;
+    private Integer unreadNotifCount;
 
     @JsonProperty("website")
     private String website;

@@ -4,9 +4,15 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 /**
@@ -47,4 +53,11 @@ public class Post implements Serializable {
 
     @Column(name = "had_comments", columnDefinition = "boolean default 0")
     private boolean hadComments = false;
+
+    @ManyToOne
+    @JoinColumn(name = "page_id")
+    private Page page;
+
+    @OneToMany(fetch = FetchType.LAZY)
+    private List<Comment> comments = new ArrayList<>();
 }

@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.ToString;
 import lombok.Value;
 
+import java.io.Serializable;
 import java.time.OffsetDateTime;
 
 /**
@@ -13,7 +14,7 @@ import java.time.OffsetDateTime;
  */
 @Value
 @ToString
-public class PostDTO {
+public class PostDTO implements Serializable {
 
     /** post id */
     @JsonProperty("id")

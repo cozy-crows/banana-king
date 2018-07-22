@@ -2,6 +2,7 @@ package com.example.bananaking.mananger;
 
 import com.example.bananaking.http.api.FacebookPageService;
 import com.example.bananaking.mananger.dto.FbResponse;
+import com.example.bananaking.mananger.dto.fanspage.CommentDTO;
 import com.example.bananaking.mananger.dto.fanspage.PageDTO;
 import com.example.bananaking.mananger.dto.fanspage.PostDTO;
 import lombok.AllArgsConstructor;
@@ -44,16 +45,26 @@ public class FacebookPageManager {
             "rating_count", "talking_about_count", "unread_message_count", "unread_notif_count",
             "website", "were_here_count");
         return toFuture(
-            pageService.page(pageId, fieldsToString(fields), null, null));
+            pageService.page(pageId, fieldsToString(fields), null, null)
+        );
     }
 
-    public CompletableFuture<FbResponse<PostDTO>> getPosts(final String pageId, String nextPage) {
-        final List<String> fields = Arrays.asList("id", "message", "link", "object_id,created_time",
+    public CompletableFuture<FbResponse<PostDTO>> getPosts(final String pageId, final String nextPage) {
+        final List<String> fields = Arrays.asList("id", "message", "link", "object_id", "created_time",
             "full_picture", "shares");
         final boolean isPublished = true;
         final int limit = 100;
         return toFuture(
             pageService.posts(pageId, fieldsToString(fields), isPublished, limit, nextPage, null)
+        );
+    }
+
+    public CompletableFuture<FbResponse<CommentDTO>> getPostComments(final String postId, final String nextPage) {
+        final List<String> fields = Arrays.asList("id", "message", "from", "created_time",
+            "comment_count", "like_count");
+        final int limit = 100;
+        return toFuture(
+            pageService.postComments(postId, fieldsToString(fields), limit, nextPage, null)
         );
     }
 

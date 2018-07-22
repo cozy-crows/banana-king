@@ -6,6 +6,7 @@ import com.example.bananaking.BaseicTest;
 import com.example.bananaking.config.FacebookPageProperties;
 import com.example.bananaking.mananger.FacebookPageManager;
 import com.example.bananaking.mananger.dto.FbResponse;
+import com.example.bananaking.mananger.dto.fanspage.CommentDTO;
 import com.example.bananaking.mananger.dto.fanspage.PageDTO;
 import com.example.bananaking.mananger.dto.fanspage.PostDTO;
 import org.junit.Test;
@@ -39,4 +40,11 @@ public class FacebookPageManagerTest extends BaseicTest {
         assertNotNull(posts);
     }
 
+    @Test
+    public void assert_get_comments_success() throws ExecutionException, InterruptedException {
+        final String postId = "540088262692058_549928451708039";
+
+        FbResponse<CommentDTO> comments = pageManager.getPostComments(postId, null).get();
+        assertNotNull(comments);
+    }
 }

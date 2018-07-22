@@ -1,6 +1,7 @@
 package com.example.bananaking.http.api;
 
 import com.example.bananaking.mananger.dto.FbResponse;
+import com.example.bananaking.mananger.dto.fanspage.CommentDTO;
 import com.example.bananaking.mananger.dto.fanspage.PageDTO;
 import com.example.bananaking.mananger.dto.fanspage.PostDTO;
 import retrofit2.Call;
@@ -48,4 +49,21 @@ public interface FacebookPageService {
                                     @Query("limit") int limit,
                                     @Query("after") String after,
                                     @Query("before") String before);
+
+    /**
+     * @see <a href="https://developers.facebook.com/docs/graph-api/reference/v3.0/comment"> docs </a>
+     *
+     * @param postId
+     * @param fields
+     * @param limit
+     * @param after
+     * @param before
+     * @return
+     */
+    @GET("{postId}/comments")
+    Call<FbResponse<CommentDTO>> postComments(@Path("postId") String postId,
+                                              @Query("fields") String fields,
+                                              @Query("limit") int limit,
+                                              @Query("after") String after,
+                                              @Query("before") String before);
 }
