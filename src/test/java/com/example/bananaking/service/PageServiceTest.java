@@ -14,6 +14,7 @@ import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.concurrent.ExecutionException;
 
 /**
@@ -60,10 +61,30 @@ public class PageServiceTest extends BaseicTest {
     }
 
     @Test
+    @Transactional
     public void assert_save_reactions_success() throws ExecutionException, InterruptedException {
         Post post = postRepo.getOne("540088262692058_1000307046670175");
         pageService.fetchAndSaveReactions(post);
         assertTrue(1 <= reactionUserRepo.findAll().size());
     }
 
+    @Test
+    @Transactional
+    public void assert_fetch_all_post_comments_success() {
+        Page page = pageRepo.getOne(pageProperties.getId());
+        LocalDateTime since = LocalDateTime.of(2018, 6, 1, 1,1);
+        LocalDateTime until = LocalDateTime.now();
+
+        pageService.fetchAllPostComments(page, since, until);
+    }
+
+    @Test
+    @Transactional
+    public void assert_fetch_all_post_reactions_success() {
+        Page page = pageRepo.getOne(pageProperties.getId());
+        LocalDateTime since = LocalDateTime.of(2018, 6, 1, 1,1);
+        LocalDateTime until = LocalDateTime.now();
+
+        pageService.fetchAllPostReactions(page, since, until);
+    }
 }

@@ -13,14 +13,18 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 /**
  * Created by jerry on 2018/7/23.
  *
  * @author jerry
  */
+
 @Entity(name = "reaction_user")
-@Table(name = "reaction_user")
+@Table(
+    name = "reaction_user",
+    uniqueConstraints = @UniqueConstraint(columnNames = {"id", "post_id"}))
 public class ReactionUser implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -51,14 +55,16 @@ public class ReactionUser implements Serializable {
     @Enumerated(EnumType.STRING)
     private ReactionType type;
 
+
     @Getter
     @Setter
     @ManyToOne
-    @JoinColumn(name = "post_id")
+    @JoinColumn(name = "post_id", insertable = false, updatable = false)
     private Post post;
 
     @Override
     public String toString() {
         return this.getClass().getSimpleName() + "-" + this.getId();
     }
+
 }

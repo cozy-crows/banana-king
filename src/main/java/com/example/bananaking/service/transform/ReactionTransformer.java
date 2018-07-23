@@ -21,7 +21,7 @@ public class ReactionTransformer {
         user.setType(ReactionType.valueOf(dto.getType()));
         user.setLink(dto.getLink());
         user.setPicLarge(dto.getPicLarge());
-
+        user.setPost(post);
         return user;
     }
 }

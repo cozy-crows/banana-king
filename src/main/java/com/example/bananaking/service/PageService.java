@@ -25,6 +25,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.CompletableFuture;
@@ -60,7 +61,14 @@ public class PageService {
         return pageRepo.save(page);
     }
 
-
+    /**
+     * 更新 post 資料
+     *
+     * @param page
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public List<Post> fetchAndSavePosts(final Page page) throws ExecutionException, InterruptedException {
 
         List<Post> allPosts = new ArrayList<>();
@@ -84,7 +92,50 @@ public class PageService {
         return allPosts;
     }
 
+    /**
+     * 取得 時間區間內的 posts 的 comments
+     *
+     * @param page
+     * @param since
+     * @param until
+     */
+    public void fetchAllPostComments(final Page page, final LocalDateTime since, LocalDateTime until) {
 
+        List<Post> posts = postRepo.findByPageAndCreatedTimeBetween(page, since, until);
+
+        posts.forEach(post -> {
+                try {
+                    fetchAndSaveComments(post);
+                } catch (ExecutionException | InterruptedException e) {
+                    log.error("Fetch all post's comments failed \n\t cause: {}", e.getMessage());
+                    e.printStackTrace();
+                }
+            });
+    }
+
+
+    public void fetchAllPostReactions(final Page page, final LocalDateTime since, LocalDateTime until) {
+
+        List<Post> posts = postRepo.findByPageAndCreatedTimeBetween(page, since, until);
+
+        posts.forEach(post -> {
+                try {
+                    fetchAndSaveReactions(post);
+                } catch (ExecutionException | InterruptedException e) {
+                    log.error("Fetch all post's reactions failed \n\t cause: {}", e.getMessage());
+                    e.printStackTrace();
+                }
+            });
+    }
+
+    /**
+     * 更新 post 底下的 comments 資料
+     *
+     * @param post
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public List<Comment> fetchAndSaveComments(final Post post) throws ExecutionException, InterruptedException {
 
         List<Comment> allComments = new ArrayList<>();
@@ -117,6 +168,14 @@ public class PageService {
         return allComments;
     }
 
+    /**
+     * 更新 post 底下的 reactions 資料
+     *
+     * @param post
+     * @return
+     * @throws ExecutionException
+     * @throws InterruptedException
+     */
     public List<ReactionUser> fetchAndSaveReactions(final Post post) throws ExecutionException, InterruptedException {
 
         List<ReactionUser> allReactions = new ArrayList<>();
