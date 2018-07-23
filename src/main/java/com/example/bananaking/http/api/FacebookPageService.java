@@ -4,6 +4,7 @@ import com.example.bananaking.mananger.dto.FbResponse;
 import com.example.bananaking.mananger.dto.fanspage.CommentDTO;
 import com.example.bananaking.mananger.dto.fanspage.PageDTO;
 import com.example.bananaking.mananger.dto.fanspage.PostDTO;
+import com.example.bananaking.mananger.dto.fanspage.ReactionDTO;
 import retrofit2.Call;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
@@ -66,4 +67,20 @@ public interface FacebookPageService {
                                               @Query("limit") int limit,
                                               @Query("after") String after,
                                               @Query("before") String before);
+
+    /**
+     *
+     * @param postId
+     * @param fields
+     * @param limit
+     * @param after
+     * @param before
+     * @return
+     */
+    @GET("{postId}/reactions")
+    Call<FbResponse<ReactionDTO>> postReactions(@Path("postId") String postId,
+                                                @Query("fields") String fields,
+                                                @Query("limit") int limit,
+                                                @Query("after") String after,
+                                                @Query("before") String before);
 }

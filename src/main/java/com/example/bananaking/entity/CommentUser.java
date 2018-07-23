@@ -24,6 +24,6 @@ public class CommentUser {
     @Column(name = "name")
     private String name;
 
-
-//    private List<Comment> comments;
+    // todo 一個 user 會對同一個 comment 貼文多次回應? new Entity(comment_comment)
+    // private List<Comment> comments;
 }

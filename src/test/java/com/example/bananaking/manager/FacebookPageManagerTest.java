@@ -9,6 +9,7 @@ import com.example.bananaking.mananger.dto.FbResponse;
 import com.example.bananaking.mananger.dto.fanspage.CommentDTO;
 import com.example.bananaking.mananger.dto.fanspage.PageDTO;
 import com.example.bananaking.mananger.dto.fanspage.PostDTO;
+import com.example.bananaking.mananger.dto.fanspage.ReactionDTO;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -42,9 +43,17 @@ public class FacebookPageManagerTest extends BaseicTest {
 
     @Test
     public void assert_get_comments_success() throws ExecutionException, InterruptedException {
-        final String postId = "540088262692058_549928451708039";
 
+        final String postId = "540088262692058_549928451708039";
         FbResponse<CommentDTO> comments = pageManager.getPostComments(postId, null).get();
+        assertNotNull(comments);
+    }
+
+    @Test
+    public void assert_get_reactions_success() throws ExecutionException, InterruptedException {
+
+        final String postId = "540088262692058_549928451708039";
+        FbResponse<ReactionDTO> comments = pageManager.getPostReactions(postId, null).get();
         assertNotNull(comments);
     }
 }

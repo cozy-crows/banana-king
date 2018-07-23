@@ -5,6 +5,7 @@ import com.example.bananaking.mananger.dto.FbResponse;
 import com.example.bananaking.mananger.dto.fanspage.CommentDTO;
 import com.example.bananaking.mananger.dto.fanspage.PageDTO;
 import com.example.bananaking.mananger.dto.fanspage.PostDTO;
+import com.example.bananaking.mananger.dto.fanspage.ReactionDTO;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 import retrofit2.Call;
@@ -65,6 +66,14 @@ public class FacebookPageManager {
         final int limit = 100;
         return toFuture(
             pageService.postComments(postId, fieldsToString(fields), limit, nextPage, null)
+        );
+    }
+
+    public CompletableFuture<FbResponse<ReactionDTO>> getPostReactions(final String postId, final String nextPage) {
+        final List<String> fields = Arrays.asList("id","name","pic_large","type","link");
+        final int limit = 100;
+        return toFuture(
+            pageService.postReactions(postId, fieldsToString(fields), limit, nextPage, null)
         );
     }
 

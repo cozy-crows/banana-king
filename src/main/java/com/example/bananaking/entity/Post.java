@@ -86,6 +86,13 @@ public class Post implements Serializable {
     @JoinColumn(name = "post_id")
     private List<Comment> comments;
 
+    @Getter
+    @Setter
+    @OneToMany(
+        cascade = CascadeType.ALL,
+        fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    private List<ReactionUser> reactions;
 
     @Override
     public String toString() {

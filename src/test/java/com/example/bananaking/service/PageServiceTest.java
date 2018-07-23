@@ -9,6 +9,7 @@ import com.example.bananaking.entity.Post;
 import com.example.bananaking.repository.CommentRepository;
 import com.example.bananaking.repository.PageRepository;
 import com.example.bananaking.repository.PostRepository;
+import com.example.bananaking.repository.ReactionUserRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -32,6 +33,8 @@ public class PageServiceTest extends BaseicTest {
     private PostRepository postRepo;
     @Autowired
     private CommentRepository commentRepo;
+    @Autowired
+    private ReactionUserRepository reactionUserRepo;
 
     @Test
     @Transactional
@@ -55,4 +58,12 @@ public class PageServiceTest extends BaseicTest {
         pageService.fetchAndSaveComments(post);
         assertTrue(1 <= commentRepo.findAll().size());
     }
+
+    @Test
+    public void assert_save_reactions_success() throws ExecutionException, InterruptedException {
+        Post post = postRepo.getOne("540088262692058_1000307046670175");
+        pageService.fetchAndSaveReactions(post);
+        assertTrue(1 <= reactionUserRepo.findAll().size());
+    }
+
 }
