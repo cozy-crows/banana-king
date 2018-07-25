@@ -43,6 +43,7 @@ spring:
 logging:
   file: banana-king.log
   file.max-size: 500MB
+  level.com.example.bananaking: error
 
 facebook:
   version: v3.0

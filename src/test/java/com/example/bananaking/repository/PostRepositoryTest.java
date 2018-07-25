@@ -28,7 +28,7 @@ public class PostRepositoryTest extends BaseicTest {
     @Autowired
     private PostRepository postRepo;
     @Autowired
-    private ReactionUserRepository reactionUserRepo;
+    private ReactionRepository reactionUserRepo;
 
     @Test
     @Transactional

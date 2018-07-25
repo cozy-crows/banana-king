@@ -5,11 +5,12 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
@@ -21,28 +22,36 @@ import javax.persistence.UniqueConstraint;
  * @author jerry
  */
 
-@Entity(name = "reaction_user")
-@Table(
-    name = "reaction_user",
-    uniqueConstraints = @UniqueConstraint(columnNames = {"id", "post_id"}))
-public class ReactionUser implements Serializable {
+@Entity(name = "reaction")
+@Table(name = "reaction", uniqueConstraints = @UniqueConstraint(columnNames = {"post_id", "id"}))
+public class Reaction implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Getter
     @Setter
-    @Id
-    private String id;
+    @EmbeddedId
+    private PostReactionId id;
 
-//    @Getter
-//    @Setter
-//    @Column(name = "post_id")
-//    private String postId;
+    @Setter
+    @Getter
+    @Column(name = "can_post", columnDefinition = "boolean default 0")
+    private boolean canPost = false;
 
     @Getter
     @Setter
     @Column(name = "name")
     private String name;
+
+    @Getter
+    @Setter
+    @Column(name = "user_name")
+    private String userName;
+
+    @Getter
+    @Setter
+    @Column(name = "profile_type")
+    private String profileType;
 
     @Getter
     @Setter
@@ -56,23 +65,15 @@ public class ReactionUser implements Serializable {
 
     @Getter
     @Setter
-    @Column(name = "type")
     @Enumerated(EnumType.STRING)
+    @Column(name = "type")
     private ReactionType type;
-
 
     @Getter
     @Setter
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "post_id", insertable = false, updatable = false)
     private Post post;
-
-//    @ManyToMany(
-//        cascade = CascadeType.ALL,
-//        fetch = FetchType.LAZY
-//    )
-//    @Column(name = "post")
-//    private List<Post> posts;
 
     @Override
     public String toString() {

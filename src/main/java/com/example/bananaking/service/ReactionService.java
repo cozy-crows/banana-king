@@ -10,7 +10,7 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @AllArgsConstructor
-public class DataService {
+public class ReactionService {
 
     private PageService pageService;
 

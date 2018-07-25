@@ -5,11 +5,10 @@ import static org.junit.Assert.assertTrue;
 import com.example.bananaking.BaseicTest;
 import com.example.bananaking.config.FacebookPageProperties;
 import com.example.bananaking.entity.Page;
-import com.example.bananaking.entity.Post;
 import com.example.bananaking.repository.CommentRepository;
 import com.example.bananaking.repository.PageRepository;
 import com.example.bananaking.repository.PostRepository;
-import com.example.bananaking.repository.ReactionUserRepository;
+import com.example.bananaking.repository.ReactionRepository;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
@@ -35,7 +34,7 @@ public class PageServiceTest extends BaseicTest {
     @Autowired
     private CommentRepository commentRepo;
     @Autowired
-    private ReactionUserRepository reactionUserRepo;
+    private ReactionRepository reactionRepo;
 
     @Test
     @Transactional
@@ -54,29 +53,15 @@ public class PageServiceTest extends BaseicTest {
 
     @Test
     @Transactional
-    public void assert_save_comments_success() throws ExecutionException, InterruptedException {
-        Post post = postRepo.getOne("540088262692058_1000307046670175");
-        pageService.fetchAndSaveComments(post);
-        assertTrue(1 <= commentRepo.findAll().size());
-    }
-
-    @Test
-    @Transactional
-    public void assert_save_reactions_success() throws ExecutionException, InterruptedException {
-        Post post = postRepo.getOne("540088262692058_1000307046670175");
-        pageService.fetchAndSaveReactions(post);
-        assertTrue(1 <= reactionUserRepo.findAll().size());
-    }
-
-    @Test
-    @Transactional
     public void assert_fetch_all_post_comments_success() {
         Page page = pageRepo.getOne(pageProperties.getId());
         LocalDateTime since = LocalDateTime.of(2018, 6, 1, 1,1);
         LocalDateTime until = LocalDateTime.now();
 
         pageService.fetchAllPostComments(page, since, until);
+        assertTrue(1 <= commentRepo.findAll().size());
     }
+
 
     @Test
     @Transactional
@@ -86,5 +71,7 @@ public class PageServiceTest extends BaseicTest {
         LocalDateTime until = LocalDateTime.now();
 
         pageService.fetchAllPostReactions(page, since, until);
+        assertTrue(1 <= reactionRepo.findAll().size());
     }
+
 }

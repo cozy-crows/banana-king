@@ -12,10 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
-import javax.persistence.JoinTable;
-import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 /**
@@ -76,6 +75,12 @@ public class Post implements Serializable {
 
     @Getter
     @Setter
+    @OneToOne(cascade = CascadeType.DETACH)
+    @JoinColumn(name = "user_id")
+    private User from;
+
+    @Getter
+    @Setter
     @ManyToOne
     @JoinColumn(name = "page_id")
     private Page page;
@@ -88,26 +93,14 @@ public class Post implements Serializable {
     @JoinColumn(name = "post_id")
     private List<Comment> comments;
 
-//    @Getter
-//    @Setter
-//    @OneToMany(
-//        cascade = CascadeType.ALL,
-//        fetch = FetchType.LAZY)
-//    @JoinColumn(name = "post_id")
-//    private List<ReactionUser> reactions;
-
     @Getter
     @Setter
-    @ManyToMany(
+    @OneToMany(
         cascade = CascadeType.ALL,
         fetch = FetchType.LAZY
     )
-    @JoinTable(
-        name = "post_reaction_user",
-        joinColumns = @JoinColumn(name = "post_id"),
-        inverseJoinColumns = @JoinColumn(name = "reaction_user_id")
-    )
-    private List<ReactionUser> reactions;
+    @JoinColumn(name = "post_id")
+    private List<Reaction> reactions;
 
     @Override
     public String toString() {

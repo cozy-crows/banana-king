@@ -24,11 +24,10 @@ public class PostTransformer {
         post.setObjectId(dto.getObjectId());
         post.setCreatedTime(dto.getCreatedTime().toLocalDateTime());
         post.setFullPicture(dto.getFullPicture());
-
+        post.setFrom(UserTransformer.toEntity(dto.getFrom()));
         if (Objects.nonNull(dto.getShares())) {
             post.setShares(dto.getShares().getCount());
         }
-
         post.setPage(page);
         return post;
     }

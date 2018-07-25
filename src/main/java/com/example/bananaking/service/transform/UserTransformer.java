@@ -1,6 +1,6 @@
 package com.example.bananaking.service.transform;
 
-import com.example.bananaking.entity.CommentUser;
+import com.example.bananaking.entity.User;
 import com.example.bananaking.mananger.dto.fanspage.UserDTO;
 
 /**
@@ -12,9 +12,9 @@ public class UserTransformer {
 
     private UserTransformer() {}
 
-    public static CommentUser toEntity(UserDTO dto) {
-        CommentUser user = new CommentUser();
-        user.setId(dto.getId());
+    public static User toEntity(UserDTO dto) {
+        User user = new User();
+        user.setPsid(dto.getId());
         user.setName(dto.getName());
         return user;
     }

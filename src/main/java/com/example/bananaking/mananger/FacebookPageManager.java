@@ -52,7 +52,7 @@ public class FacebookPageManager {
 
     public CompletableFuture<FbResponse<PostDTO>> getPosts(final String pageId, final String nextPage) {
         final List<String> fields = Arrays.asList("id", "message", "link", "object_id", "created_time",
-            "full_picture", "shares");
+            "full_picture", "shares", "from");
         final boolean isPublished = true;
         final int limit = 100;
         return toFuture(
@@ -70,7 +70,8 @@ public class FacebookPageManager {
     }
 
     public CompletableFuture<FbResponse<ReactionDTO>> getPostReactions(final String postId, final String nextPage) {
-        final List<String> fields = Arrays.asList("id","name","pic_large","type","link");
+        final List<String> fields = Arrays.asList("id", "can_post", "link", "name", "pic_large", "profile_type",
+            "type", "username");
         final int limit = 100;
         return toFuture(
             pageService.postReactions(postId, fieldsToString(fields), limit, nextPage, null)

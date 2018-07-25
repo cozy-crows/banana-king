@@ -1,5 +1,7 @@
 package com.example.bananaking.entity;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,12 +13,14 @@ import javax.persistence.Table;
  *
  * @author jerry
  */
+@Data
 @Table(name = "user")
 @Entity(name = "user")
 public class User implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
+    // todo only support one page
     @Id
     private String psid;
 

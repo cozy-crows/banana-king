@@ -1,6 +1,6 @@
 package com.example.bananaking.repository;
 
-import com.example.bananaking.entity.ReactionUser;
+import com.example.bananaking.entity.Reaction;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
@@ -10,5 +10,5 @@ import org.springframework.stereotype.Repository;
  * @author jerry
  */
 @Repository
-public interface ReactionUserRepository extends JpaRepository<ReactionUser, String> {
+public interface ReactionRepository extends JpaRepository<Reaction, String> {
 }

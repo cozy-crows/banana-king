@@ -38,6 +38,8 @@ public class PostDTO implements Serializable {
     @JsonProperty("shares")
     private Shares shares;
 
+    @JsonProperty("from")
+    private UserDTO from;
 
     @Value
     @ToString

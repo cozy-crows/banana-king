@@ -55,7 +55,7 @@ public class Comment implements Serializable {
     @Setter
     @OneToOne(cascade = CascadeType.DETACH)
     @JoinColumn(name = "user_id")
-    private CommentUser from;
+    private User from;
 
     @Getter
     @Setter

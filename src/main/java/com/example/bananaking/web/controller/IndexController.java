@@ -1,10 +1,14 @@
 package com.example.bananaking.web.controller;
 
-import com.google.common.collect.Lists;
+import com.example.bananaking.entity.Page;
+import com.example.bananaking.repository.PageRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.List;
 
 /**
  * Created by jerry on 2018/7/21.
@@ -16,30 +20,27 @@ import org.springframework.web.bind.annotation.RequestParam;
 @Controller
 public class IndexController {
 
+    @Autowired
+    private PageRepository pageRepo;
+
     /**
-     * static page
+     * first page
      *
      * @param model
      * @return
      */
-    @RequestMapping(value = "/")
+    @RequestMapping("/")
     public String index(Model model) {
-        model.addAttribute("list", Lists.newArrayList("a", "b", "c"));
-        return "index.html";
+        List<Page> pages = pageRepo.findAll();
+        model.addAttribute("pages", pages);
+        return "main/index";
     }
 
-    /**
-     * template page
-     *
-     * @param title
-     * @param model
-     * @return
-     */
-    @RequestMapping("/foo")
-    public String greeting(@RequestParam(value = "title", required = false, defaultValue = "xiao") String title,
-                           Model model) {
+    @RequestMapping("/fans")
+    public String fans(
+        @RequestParam(value = "pageId", defaultValue = "540088262692058") String pageId,
+        Model model) {
 
-        model.addAttribute("name", title);
-        return "main/index";
+        return "main/fans";
     }
 }

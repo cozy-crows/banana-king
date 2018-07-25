@@ -1,10 +1,10 @@
 package com.example.bananaking.service;
 
 import com.example.bananaking.entity.Comment;
-import com.example.bananaking.entity.CommentUser;
 import com.example.bananaking.entity.Page;
 import com.example.bananaking.entity.Post;
-import com.example.bananaking.entity.ReactionUser;
+import com.example.bananaking.entity.Reaction;
+import com.example.bananaking.entity.User;
 import com.example.bananaking.mananger.FacebookPageManager;
 import com.example.bananaking.mananger.dto.FbResponse;
 import com.example.bananaking.mananger.dto.fanspage.CommentDTO;
@@ -12,10 +12,10 @@ import com.example.bananaking.mananger.dto.fanspage.PageDTO;
 import com.example.bananaking.mananger.dto.fanspage.PostDTO;
 import com.example.bananaking.mananger.dto.fanspage.ReactionDTO;
 import com.example.bananaking.repository.CommentRepository;
-import com.example.bananaking.repository.CommentUserRepository;
+import com.example.bananaking.repository.UserRepository;
 import com.example.bananaking.repository.PageRepository;
 import com.example.bananaking.repository.PostRepository;
-import com.example.bananaking.repository.ReactionUserRepository;
+import com.example.bananaking.repository.ReactionRepository;
 import com.example.bananaking.service.transform.CommentTransformer;
 import com.example.bananaking.service.transform.PageTransformer;
 import com.example.bananaking.service.transform.PostTransformer;
@@ -46,8 +46,8 @@ public class PageService {
     private PageRepository pageRepo;
     private PostRepository postRepo;
     private CommentRepository commentRepo;
-    private CommentUserRepository commentUserRepo;
-    private ReactionUserRepository reactionUserRepo;
+    private UserRepository userRepo;
+    private ReactionRepository reactionRepo;
 
     /**
      * Fetch page info and save
@@ -72,6 +72,7 @@ public class PageService {
     public List<Post> fetchAndSavePosts(final Page page) throws ExecutionException, InterruptedException {
 
         List<Post> allPosts = new ArrayList<>();
+        List<User> allUsers = new ArrayList<>();
         FbResponse<PostDTO> response;
         String nextPage = null;
 
@@ -82,10 +83,17 @@ public class PageService {
                 .parallelStream()
                 .map(post -> PostTransformer.toEntity(page, post))
                 .collect(Collectors.toList());
-            nextPage = response.getAfterPageHash();
+            List<User> users = posts
+                .parallelStream()
+                .map(Post::getFrom)
+                .collect(Collectors.toList());
+            allUsers.addAll(users);
             allPosts.addAll(posts);
+            nextPage = response.getAfterPageHash();
+
         } while (response.hasNextPage());
 
+        userRepo.saveAll(allUsers);
         allPosts = postRepo.saveAll(allPosts);
         page.setPosts(allPosts);
         pageRepo.save(page);
@@ -139,7 +147,7 @@ public class PageService {
     public List<Comment> fetchAndSaveComments(final Post post) throws ExecutionException, InterruptedException {
 
         List<Comment> allComments = new ArrayList<>();
-        List<CommentUser> allUsers = new ArrayList<>();
+        List<User> allUsers = new ArrayList<>();
         FbResponse<CommentDTO> response;
         String nextPage = null;
 
@@ -151,7 +159,7 @@ public class PageService {
                 .parallelStream()
                 .map(comment -> CommentTransformer.toEntity(post, comment))
                 .collect(Collectors.toList());
-            List<CommentUser> users = comments.parallelStream()
+            List<User> users = comments.parallelStream()
                 .map(Comment::getFrom)
                 .collect(Collectors.toList());
 
@@ -160,7 +168,7 @@ public class PageService {
             allUsers.addAll(users);
         } while (response.hasNextPage());
 
-        commentUserRepo.saveAll(allUsers);
+        userRepo.saveAll(allUsers);
         allComments = commentRepo.saveAll(allComments);
         post.setComments(allComments);
         post.setHadComments(true);
@@ -176,17 +184,17 @@ public class PageService {
      * @throws ExecutionException
      * @throws InterruptedException
      */
-    public List<ReactionUser> fetchAndSaveReactions(final Post post) throws ExecutionException, InterruptedException {
+    public List<Reaction> fetchAndSaveReactions(final Post post) throws ExecutionException, InterruptedException {
 
-        List<ReactionUser> allReactions = new ArrayList<>();
+        List<Reaction> allReactions = new ArrayList<>();
         FbResponse<ReactionDTO> response;
         String nextPage = null;
 
         do {
             CompletableFuture<FbResponse<ReactionDTO>> future = pageManager.getPostReactions(post.getId(), nextPage);
             response = future.get();
-            List<ReactionUser> reactions = response.getData()
-                .parallelStream()
+            List<Reaction> reactions = response.getData()
+                .stream()
                 .map(reaction -> ReactionTransformer.toEntity(post, reaction))
                 .collect(Collectors.toList());
 
@@ -194,10 +202,10 @@ public class PageService {
             allReactions.addAll(reactions);
         } while (response.hasNextPage());
 
-        allReactions = reactionUserRepo.saveAll(allReactions);
         post.setReactions(allReactions);
         post.setHadReactions(true);
         postRepo.save(post);
+        allReactions = reactionRepo.saveAll(allReactions);
         return allReactions;
     }
 }

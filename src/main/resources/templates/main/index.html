@@ -1,93 +1,33 @@
 <!DOCTYPE html>
-<html layout:decorate="layout"
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layout"
       lang="en">
 <body>
 <div layout:fragment="content">
 
     <div class="container">
         <!-- Page Heading -->
-        <h1 class="my-4">粉絲頁
-            <small>KOL</small>
+        <h1 class="my-4">KOL
+            <small>rock n roll</small>
         </h1>
 
-        <!-- Project One -->
-        <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-fluid rounded mb-3 mb-md-0" src="https://scontent.xx.fbcdn.net/v/t1.0-9/s720x720/37337853_2050344188333117_7434647698579390464_o.jpg?_nc_cat=0&oh=cc6b39345d6b96f058eea81c59044c15&oe=5BD020A0" alt="">
-                </a>
+        <div th:each="page : ${pages}">
+            <div class="row">
+                <div class="col-md-7">
+                    <a href="#">
+                        <img class="img-fluid rounded mb-3 mb-md-0"
+                             th:src="${page.cover}" src="http://placehold.it/700x300"
+                             th:alt="${page.name}" alt="alt">
+                    </a>
+                </div>
+                <div class="col-md-5">
+                    <h3 th:text="${page.name}">page name</h3>
+                    <p th:text="${page.description}">page introduction</p>
+                    <a class="btn btn-primary" href="#" th:href="@{page.link}">View Project</a>
+                </div>
             </div>
-            <div class="col-md-5">
-                <h3>早餐吃麥片 MorningShop</h3>
-                <p>用燕麥片開啟美好的一天！在《早餐吃麥片》選購我們為您精挑細選的品味早點，各式燕麥片、健康天然無負擔零嘴，並提供給您麥片營養成分、麥片食譜、麥片熱量等各類麥片好處與知識，讓晨起不再是匆忙地囫圇吞棗，而是更優雅的生活風格..
-
-                    商城 http://morningshop.tw
-                    部落格 http://blog.morningshop.tw
-                    Instagram http://instagram.com/morningshop.tw</p>
-                <a class="btn btn-primary" href="#">View Project</a>
-            </div>
+            <hr>
         </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Project Two -->
-        <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Project Two</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ut, odit velit cumque vero doloremque
-                    repellendus distinctio maiores rem expedita a nam vitae modi quidem similique ducimus! Velit, esse totam
-                    tempore.</p>
-                <a class="btn btn-primary" href="#">View Project</a>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Project Three -->
-        <div class="row">
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Project Three</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Omnis, temporibus, dolores, at, praesentium ut
-                    unde repudiandae voluptatum sit ab debitis suscipit fugiat natus velit excepturi amet commodi deleniti
-                    alias possimus!</p>
-                <a class="btn btn-primary" href="#">View Project</a>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
-
-        <!-- Project Four -->
-        <div class="row">
-
-            <div class="col-md-7">
-                <a href="#">
-                    <img class="img-fluid rounded mb-3 mb-md-0" src="http://placehold.it/700x300" alt="">
-                </a>
-            </div>
-            <div class="col-md-5">
-                <h3>Project Four</h3>
-                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo, quidem, consectetur, officia rem
-                    officiis illum aliquam perspiciatis aspernatur quod modi hic nemo qui soluta aut eius fugit quam in
-                    suscipit?</p>
-                <a class="btn btn-primary" href="#">View Project</a>
-            </div>
-        </div>
-        <!-- /.row -->
-
-        <hr>
 
         <!-- Pagination -->
         <ul class="pagination justify-content-center">
