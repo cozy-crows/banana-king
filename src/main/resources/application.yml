@@ -27,6 +27,18 @@ spring:
     hibernate.ddl-auto: update
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
 
+    properties.hibernate.enable_lazy_load_no_trans: true
+
+  thymeleaf:
+    enabled: true
+    cache: false
+    encoding: UTF-8
+    prefix: classpath:/templates/
+    suffix: .html
+    mode: LEGACYHTML5
+
+  devtools.restart.exclude: static
+
 # logging
 logging:
   file: banana-king.log

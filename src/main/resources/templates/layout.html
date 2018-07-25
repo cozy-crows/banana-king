@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>Banana-king</title>
+    <!-- Bootstrap core CSS -->
+    <link th:href="@{vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+    <!-- Custom styles for this template -->
+    <link th:href="@{vendor/bootstrap/css/1-col-portfolio.css}" rel="stylesheet">
+</head>
+
+<body>
+<div th:replace="~{nav :: nav}"></div>
+<div layout:fragment="content"></div>
+<div th:replace="~{footer :: footer}"></div>
+</body>
+</html>

@@ -49,7 +49,7 @@ public class PageServiceTest extends BaseicTest {
     public void assert_save_posts_success() throws ExecutionException, InterruptedException {
         Page page = pageRepo.getOne(pageProperties.getId());
         pageService.fetchAndSavePosts(page);
-        assertTrue(1 < pageRepo.findAll().size());
+        assertTrue(1 <= postRepo.findAll().size());
     }
 
     @Test

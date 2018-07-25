@@ -34,6 +34,11 @@ public class ReactionUser implements Serializable {
     @Id
     private String id;
 
+//    @Getter
+//    @Setter
+//    @Column(name = "post_id")
+//    private String postId;
+
     @Getter
     @Setter
     @Column(name = "name")
@@ -61,6 +66,13 @@ public class ReactionUser implements Serializable {
     @ManyToOne
     @JoinColumn(name = "post_id", insertable = false, updatable = false)
     private Post post;
+
+//    @ManyToMany(
+//        cascade = CascadeType.ALL,
+//        fetch = FetchType.LAZY
+//    )
+//    @Column(name = "post")
+//    private List<Post> posts;
 
     @Override
     public String toString() {
