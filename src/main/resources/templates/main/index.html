@@ -6,53 +6,85 @@
 <div layout:fragment="content">
 
     <div class="container">
-        <!-- Page Heading -->
-        <h1 class="my-4">KOL
-            <small>rock n roll</small>
-        </h1>
-
-        <div th:each="page : ${pages}">
-            <div class="row">
-                <div class="col-md-7">
-                    <a href="#">
-                        <img class="img-fluid rounded mb-3 mb-md-0"
-                             th:src="${page.cover}" src="http://placehold.it/700x300"
-                             th:alt="${page.name}" alt="alt">
-                    </a>
-                </div>
-                <div class="col-md-5">
-                    <h3 th:text="${page.name}">page name</h3>
-                    <p th:text="${page.description}">page introduction</p>
-                    <a class="btn btn-primary" href="#" th:href="@{page.link}">View Project</a>
-                </div>
+        <h1></h1>
+        <div class="row">
+            <div class="col-md-12">
+                <img class="img-fluid rounded mb-3 mb-md-0"
+                     th:src="@{vendor/img/info.png}" src="http://placehold.it/700x300"
+                     alt="alt">
             </div>
-            <hr>
         </div>
 
-        <!-- Pagination -->
-        <ul class="pagination justify-content-center">
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Previous">
-                    <span aria-hidden="true">&laquo;</span>
-                    <span class="sr-only">Previous</span>
-                </a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">1</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">2</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#">3</a>
-            </li>
-            <li class="page-item">
-                <a class="page-link" href="#" aria-label="Next">
-                    <span aria-hidden="true">&raquo;</span>
-                    <span class="sr-only">Next</span>
-                </a>
-            </li>
-        </ul>
+        <!-- Page Heading -->
+        <h1 class="my-4">粉絲英雄榜</h1>
+
+        <div class="row">
+            <div class="col-md-12">
+                <table class="table">
+                    <thead>
+                    <tr>
+                        <th scope="col">排名</th>
+                        <th scope="col">名稱</th>
+                        <th scope="col">積分</th>
+                        <th scope="col"></th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <tr>
+                        <th><img th:src="@{vendor/img/Group 10.png}" src=""></th>
+                        <th>陳家銘</th>
+                        <th>留言數 16K</th>
+                        <th>留言累積按讚 9.7K</th>
+                    </tr>
+                    <tr>
+                        <th><img th:src="@{vendor/img/Group 11.png}" src=""></th>
+                        <th>陳家銘</th>
+                        <th>留言數 16K</th>
+                        <th>留言累積按讚 9.7K</th>
+                    </tr>
+                    <tr>
+                        <th><img th:src="@{vendor/img/Group 12.png}" src=""></th>
+                        <th>陳家銘</th>
+                        <th>留言數 16K</th>
+                        <th>留言累積按讚 9.7K</th>
+                    </tr>
+                    <tr>
+                        <th><img th:src="@{vendor/img/Group 13.png}" src=""></th>
+                        <th>陳家銘</th>
+                        <th>留言數 16K</th>
+                        <th>留言累積按讚 9.7K</th>
+                    </tr>
+                    <tr>
+                        <th><img th:src="@{vendor/img/Group 14.png}" src=""></th>
+                        <th>陳家銘</th>
+                        <th>留言數 16K</th>
+                        <th>留言累積按讚 9.7K</th>
+                    </tr>
+                    <tr>
+                        <th><img th:src="@{vendor/img/Group 16.png}" src=""></th>
+                        <th>陳家銘</th>
+                        <th>留言數 16K</th>
+                        <th>留言累積按讚 9.7K</th>
+                    </tr>
+                    <tr>
+                        <th><img th:src="@{vendor/img/Group 17.png}" src=""></th>
+                        <th>陳家銘</th>
+                        <th>留言數 16K</th>
+                        <th>留言累積按讚 9.7K</th>
+                    </tr>
+                    <tr>
+                        <th><img th:src="@{vendor/img/Group 18.png}" src=""></th>
+                        <th>陳家銘</th>
+                        <th>留言數 16K</th>
+                        <th>留言累積按讚 9.7K</th>
+                    </tr>
+
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+
     </div>
 
 
