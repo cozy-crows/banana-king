@@ -48,4 +48,14 @@ public class IndexController {
         model.addAttribute("kingOfComments", kingOfComments);
         return "main/fans";
     }
+
+    @RequestMapping("/quests")
+    public String quests(Model model) {
+        return "main/quests";
+    }
+
+    @RequestMapping("/awards")
+    public String awards(Model model) {
+        return "main/awards";
+    }
 }

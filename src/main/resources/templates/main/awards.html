@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      layout:decorate="layout"
+      lang="en">
+<body>
+<div layout:fragment="content">
+
+    <div class="container">
+        <hr>
+        <div class="row">
+            <div class="col-md-12">
+                <img class="img-fluid rounded mb-3 mb-md-0"
+                     th:src="@{vendor/img/info.png}" src="http://placehold.it/700x300"
+                     alt="alt">
+            </div>
+        </div>
+
+        <!-- Page Heading -->
+        <h1 class="my-4">活動獎勵清單</h1>
+
+        <div class="row">
+            <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" th:src="@{vendor/img/prize1.png}" src="http://placehold.it/700x400" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">限量版取暖潮T 情侶款</a>
+                        </h4>
+                        <p class="card-text">每日上線簽到打卡即可獲得</p>
+                        <h5>$350</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" th:src="@{vendor/img/prize2.png}" src="http://placehold.it/700x400" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">瘋狂杯套</a>
+                        </h4>
+                        <p class="card-text">貼文下方得到最多按讚留言即可獲得</p>
+                        <h5>$150</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" th:src="@{vendor/img/prize3.png}" src="http://placehold.it/700x400" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">束口袋</a>
+                        </h4>
+                        <p class="card-text">分享貼文影片即可獲得</p>
+                        <h5>$100</h5>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6 portfolio-item">
+                <div class="card h-100">
+                    <a href="#"><img class="card-img-top" th:src="@{vendor/img/prize4.png}" src="http://placehold.it/700x400" alt=""></a>
+                    <div class="card-body">
+                        <h4 class="card-title">
+                            <a href="#">手機殼</a>
+                        </h4>
+                        <p class="card-text">直播互動數最高者即可獲得</p>
+                        <h5>$600</h5>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+
+</div>
+</body>
+</html>
